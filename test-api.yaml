@@ -14,3 +14,12 @@ spec:
   type: openapi
   lifecycle: production
   owner: Developers-Anonymous
+  system: developer-system
+  definition: |
+    openapi: "3.0.0"
+    info:
+      version: 1.0.0
+      title: Test API
+      license:
+        name: MIT
+    ...
