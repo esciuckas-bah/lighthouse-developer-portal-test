@@ -1,0 +1,16 @@
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  annotations:
+    backstage.io/edit-url: https://github.com/esciuckas-bah/lighthouse-developer-portal-test/blob/main/test-api.yaml
+    backstage.io/source-location: url:https://github.com/esciuckas-bah/lighthouse-developer-portal-test
+    backstage.io/view-url: https://github.com/esciuckas-bah/lighthouse-developer-portal-test/blob/main/test-api.yaml
+  description: Generic Description Without Name
+  name: Test API
+  tags:
+  - veis
+  title: Title Test API
+spec:
+  type: openapi
+  lifecycle: production
+  owner: Developers-Anonymous
