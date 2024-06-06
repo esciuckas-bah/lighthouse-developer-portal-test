@@ -6,7 +6,7 @@ metadata:
     backstage.io/source-location: url:https://github.com/esciuckas-bah/lighthouse-developer-portal-test
     backstage.io/view-url: https://github.com/esciuckas-bah/lighthouse-developer-portal-test/blob/main/test-api.yaml
   description: Generic Description Without Name
-  name: Test API
+  name: test-api
   tags:
   - veis
   title: Title Test API
