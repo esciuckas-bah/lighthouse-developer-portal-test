@@ -9,7 +9,6 @@ metadata:
   name: test-api
   tags:
   - veis
-  title: Title Test API
 spec:
   type: openapi
   lifecycle: production
