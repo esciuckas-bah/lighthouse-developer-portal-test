@@ -1,24 +1,155 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  annotations:
-    backstage.io/edit-url: https://github.com/esciuckas-bah/lighthouse-developer-portal-test/blob/main/test-api.yaml
-    backstage.io/source-location: url:https://github.com/esciuckas-bah/lighthouse-developer-portal-test
-    backstage.io/view-url: https://github.com/esciuckas-bah/lighthouse-developer-portal-test/blob/main/test-api.yaml
-  description: Generic Description Without Name
-  name: test-api
+  name: catalog-api-test
+  description: Apis used by the Catalog component of CODE VA
+  title: TEST CODE VA Catalog
   tags:
-  - veis
+    - javascript
+    - node
+  links:
+    - url: https://github.com/department-of-veterans-affairs/code-va/issues
+      title: Issues
+      icon: help
+    - url: https://code.va.gov/docs/default/component/code-va-monorepo
+      title: Docs
+      icon: dashboard
+    - url: https://backstage.io/
+      title: Backstage.io
+      icon: web
+    - url: https://lighthouseva.slack.com/archives/C020ZR4UL8H
+      title: lighthouse-bandicoot slack
+      icon: group
+  annotations:
+    github.com/project-slug: department-of-veterans-affairs/code-va
+    datadoghq.com/site: ddog-gov.com
+    datadoghq.com/dashboard-url: https://lighthousedi.ddog-gov.com/s/9d9fea96-bc1e-11ec-978a-da7ad0900007/uv5-arj-ira
+    datadoghq.com/graph-token: cf768c9d7058a63aa6aaed073083ecb92c632af73f340632548223771b210b22
 spec:
   type: openapi
-  lifecycle: production
-  owner: Developers-Anonymous
-  system: developer-system
+  owner: lighthouse-bandicoot
+  lifecycle: experimental
+  system: code-va
+  # All routes for catalogs entities were found by viewing the @backstage/catalog-client source code
+  # @see https://github.com/backstage/backstage/blob/master/packages/catalog-client/src/CatalogClient.ts
   definition: |
-    openapi: "3.0.0"
+    openapi: 3.0.0
     info:
       version: 1.0.0
-      title: Test API
-      license:
-        name: MIT
-    ...
+      title: Catalog Entry
+    paths:
+      /api/catalog/locations:
+        get:
+          description: Gets an origin Location by Entity
+          responses:
+            "200":
+              description: A Location response, https://github.com/backstage/backstage/blob/master/packages/catalog-model/src/location/types.ts
+        post:
+          description: Adds a location
+          responses:
+            "201":
+              description: A Location response, https://github.com/backstage/backstage/blob/master/packages/catalog-model/src/location/types.ts
+      /api/catalog/locations/:id:
+        get:
+          description: Gets a Location by Id.
+          responses:
+            "200":
+              description: A Location response, https://github.com/backstage/backstage/blob/master/packages/catalog-model/src/location/types.ts
+        delete:
+          description: Removes a location as identified by Id
+          responses:
+            "204":
+              description: An empty response
+        parameters:
+          - name: id
+            in: path
+            required: true
+            description: Location Id
+            schema:
+              type: string
+      /api/catalog/entities:
+        get:
+          description: Gets a set of Entities
+          responses:
+            "200":
+              description: A list of entities response, https://github.com/backstage/backstage/blob/master/packages/catalog-model/src/entity/Entity.ts#L30
+      /api/catalog/entities/by-name/:kind/:namespace/:name:
+        get:
+          description: Gets a given Entity based on a provided name.
+          responses:
+            "200":
+              description: A CatalogEntityAncestorsResponse, https://github.com/backstage/backstage/blob/master/packages/catalog-client/src/types/api.ts#L53
+        parameters:
+          - name: kind
+            in: path
+            required: true
+            description: Kind of Entity (component, api, system, etc.)
+            schema:
+              type: string
+          - name: namespace
+            in: path
+            required: true
+            description: Namespace if present in Entity, otherwise use default
+            schema:
+              type: string
+          - name: name
+            in: path
+            required: true
+            description: The name of the Entity
+            schema:
+              type: string
+      /api/catalog/by-uid/:uid:
+        delete:
+          description: Removes an Entity as identified by Uid
+          responses:
+            "204":
+              description: Empty Response
+        parameters:
+          - name: uid
+            in: path
+            required: true
+            description: A string containing the uid
+            schema:
+              type: string
+      /api/catalog/:namespace/:kind/:name:
+        get:
+          description: lists a single entity matching the namespace, kind, and name
+          responses:
+            "200":
+              description: Entity response, https://github.com/backstage/backstage/blob/master/packages/catalog-model/src/entity/Entity.ts#L30
+          parameters:
+            - name: kind
+              in: path
+              required: true
+              description: Kind of Entity (component, api, system, etc.)
+              schema:
+                type: string
+            - name: namespace
+              in: path
+              required: true
+              description: Namespace if present in Entity, otherwise use default
+              schema:
+                type: string
+            - name: name
+              in: path
+              required: true
+              description: The name of the Entity
+              schema:
+                type: string
+      /api/catalog/refresh:
+        post:
+          description: Refreshes an Entity
+          responses:
+            "200":
+              description: Empty response
+        parameters:
+          - name: entityRef
+            in: query
+            description: A string containing the entityRef
+            required: true
+            content:
+              text/plain:
+                schema:
+                  type: object
+                  items:
+                    type: string
