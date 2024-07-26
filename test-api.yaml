@@ -23,7 +23,7 @@ metadata:
   annotations:
     github.com/project-slug: department-of-veterans-affairs/code-va
     datadoghq.com/site: ddog-gov.com
-    datadoghq.com/dashboard-url: https://lighthousedi.ddog-gov.com/s/9d9fea96-bc1e-11ec-978a-da7ad0900007/uv5-arj-ira
+    datadoghq.com/dashboard-url: https://app.ddog-gov.com/sb/9d9fea96-bc1e-11ec-978a-da7ad0900007-4b7d95e6d5aa16070d66a1f1d5100386
     datadoghq.com/graph-token: cf768c9d7058a63aa6aaed073083ecb92c632af73f340632548223771b210b22
 spec:
   type: openapi
