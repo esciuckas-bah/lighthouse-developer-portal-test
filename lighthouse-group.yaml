@@ -1,0 +1,25 @@
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  namespace: default
+  annotations:
+    github.com/team-slug: department-of-veterans-affairs/lighthouse-bandicoot
+  name: lighthouse-bandicoot
+spec:
+  type: team
+  profile:
+    displayName: lighthouse-bandicoot
+    picture: https://avatars.githubusercontent.com/t/4785559?s=400&v=4
+  children: []
+  parent: lighthouse-apis
+  members:
+    - zaslow
+    - tiffanyj88
+    - KaemonIsland
+    - keyluck
+    - aparcel-va
+    - darduda
+    - code-va
+    - esciuckas-bah
+    - declan-downie
+    - nick-gray-bah
